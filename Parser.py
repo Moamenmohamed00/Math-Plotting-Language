@@ -29,14 +29,31 @@ class Parser:
             raise Exception("Expected 'FROM' keyword")
 
         self.advance()  # skip FROM
-        start = self.current_token.value
+        # دعم الرقم السالب
+        sign = 1
+        if self.current_token.type == TT_MINUS:
+            sign = -1
+            self.advance()
+
+        if self.current_token.type not in (TT_INT, TT_FLOAT):
+            raise Exception("Expected a number after FROM")
+
+        start = sign * self.current_token.value
         self.advance()
 
         if self.current_token.type != TT_TO:
             raise Exception("Expected 'TO' keyword")
 
         self.advance()  # skip TO
-        end = self.current_token.value
+        sign = 1
+        if self.current_token.type == TT_MINUS:
+            sign = -1
+            self.advance()
+
+        if self.current_token.type not in (TT_INT, TT_FLOAT):
+            raise Exception("Expected a number after TO")
+
+        end = sign * self.current_token.value
         self.advance()
 
         return {

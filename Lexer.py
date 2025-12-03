@@ -61,8 +61,12 @@ class Le:
                 tokens.append(Token(TT_MINUS))
                 self.advance()
             elif self.current_char == '*':
-                tokens.append(Token(TT_MUL))
                 self.advance()
+                if self.current_char == '*':   # double star
+                    tokens.append(Token('POW'))  # نوع جديد
+                    self.advance()
+                else:
+                    tokens.append(Token(TT_MUL))
             elif self.current_char == '/':
                 tokens.append(Token(TT_DIV))
                 self.advance()
@@ -102,5 +106,7 @@ class Le:
         while self.current_char is not None and (self.current_char in LETTERS):
             id_str += self.current_char
             self.advance()
-        token_type = KEYWORDS.get(id_str.lower(), TT_IDENT)
-        return Token(token_type, id_str)
+
+        id_lower = id_str.lower()
+        token_type = KEYWORDS.get(id_lower, TT_IDENT)
+        return Token(token_type, id_lower)
