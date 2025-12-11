@@ -148,3 +148,4 @@ app.mainloop()
 # calc>>  PLOT sin(x) + x**2 FROM -5 TO 200
 # calc>>  PLOT 3*cos(x) - 2*x FROM 0 TO 10
 # calc>> PLOT sqrt(x) FROM 0 TO 50
+# calc>> PLOT ((x**2 + sin(x))*(log(x+10)+exp(-x)))/(1+cos(x))
